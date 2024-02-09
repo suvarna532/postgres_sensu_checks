@@ -30,8 +30,8 @@ else
         status_code=1
     else
         
-        used_disk_space=$(df -h | grep /dev/sdb | awk '{print $5}')
-        used_disk_percentage=$(echo "scale=2; $used_disk_space" | bc -l)
+        used_disk_space=$(df -h | grep /dev/sdb | awk '{print $5}' | tr -d '%')
+        used_disk_percentage=$(printf "%d\n" $used_disk_space)
 
         if (( $(echo "$used_disk_percentage > $c_disk" | bc -l) )); then
             status="CRITICAL"
