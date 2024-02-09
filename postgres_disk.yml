@@ -1,0 +1,19 @@
+---
+api_version: core/v2
+type: Check
+metadata:
+  namespace: default
+  name: Disk-Usage_postgres
+  labels: {}
+  annotations:
+    sensu.io.json_attributes: '{"occurrences":5,"opsgenie":{"tags":[":::opsgenie.tags:::"]}}'
+    fatigue_check/occurrences: '5'
+spec:
+  command: /etc/sensu/plugins/postgres-diskspace.sh -w 50 -c 70
+  subscriptions:
+  - Postgres
+  publish: true
+  interval: 60
+  max_output_size: 1024
+  handlers:
+  - opsgenie
